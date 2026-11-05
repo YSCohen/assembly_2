@@ -2,7 +2,7 @@
 
 ## Objective
 
-Implement array, struct, and heap operations in x86-64 AT&T syntax using only the techniques shown in Assembly Parts 4–5:
+Implement array, struct, and heap operations in x86-64 AT&T syntax using only the techniques shown in Assembly Parts 1-4:
 
 - array elements as contiguous memory;
 - address calculation using a base address, index, and element size;
