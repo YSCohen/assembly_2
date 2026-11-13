@@ -69,9 +69,32 @@ sensor_score:
     .globl sensor_array_total
     .type sensor_array_total, @function
 sensor_array_total:
-    # TODO: Problem 4
+    # DONE: Problem 4
+    # %rdi - const Sensor *a
+    # %rsi - long n
+
     movq $0, %rax
-    ret
+    movq $0, %rdx # index
+
+    p4_loop:
+        cmpq %rsi, %rdx
+        jge p4_ret
+        pushq %rax
+        pushq %rsi
+        pushq %rdi
+        pushq %rdx
+        call sensor_score
+        popq %rdx
+        popq %rdi
+        popq %rsi
+        popq %rcx
+        addq %rcx, %rax
+        addq $1, %rdx
+        addq $24, %rdi
+        jmp p4_loop
+
+    p4_ret:
+        ret
 
     .globl make_arithmetic_sequence
     .type make_arithmetic_sequence, @function
