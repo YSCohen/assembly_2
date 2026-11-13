@@ -10,13 +10,14 @@ sum_positive_ints:
     p1_loop:
         cmpq %rsi, %rdx
         jge p1_ret
-        movslq (%rdi,%rdx,4), %rcx
+        movslq (%rdi), %rcx
         cmpq $0, %rcx
         jle p1_skip
         addq %rcx, %rax
 
     p1_skip:
         addq $1, %rdx
+        addq $4, %rdi
         jmp p1_loop
     
     p1_ret:
