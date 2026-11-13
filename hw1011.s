@@ -26,8 +26,28 @@ sum_positive_ints:
     .globl reverse_longs
     .type reverse_longs, @function
 reverse_longs:
-    # TODO: Problem 2
-    ret
+    # DONE: Problem 2
+    # %rdi - long *a
+    # %rsi - long n
+
+    movq %rdi, %rdx
+    subq $1, %rsi
+    imulq $8, %rsi
+    addq %rsi, %rdx
+
+    p2_loop:
+        cmpq %rdi, %rdx
+        jle p2_ret
+        movq (%rdi), %rcx
+        movq (%rdx), %r8
+        movq %rcx, (%rdx)
+        movq %r8, (%rdi)
+        addq $8, %rdi
+        subq $8, %rdx
+        jmp p2_loop
+
+    p2_ret:
+        ret
 
     .globl sensor_score
     .type sensor_score, @function
