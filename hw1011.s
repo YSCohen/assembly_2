@@ -99,9 +99,48 @@ sensor_array_total:
     .globl make_arithmetic_sequence
     .type make_arithmetic_sequence, @function
 make_arithmetic_sequence:
-    # TODO: Problem 5
-    movq $0, %rax
-    ret
+    # DONE: Problem 5
+    # %rdi - long start
+    # %rsi - long step
+    # %rdx - long n
+
+    cmpq $0, %rdx
+    jle p5_ret_null
+
+    pushq %rdi
+    pushq %rsi
+    pushq %rdx
+
+    imulq $8, %rdx
+    movq %rdx, %rdi
+    call malloc
+
+    popq %rdx
+    popq %rsi
+    popq %rdi
+
+    cmpq $0, %rax
+    je p5_ret_null
+
+    movq %rax, %rcx
+    movq $0, %r8
+    p5_loop:
+        cmpq %rdx, %r8
+        jge p5_ret
+        movq %rsi, %r9
+        imulq %r8, %r9
+        addq %rdi, %r9
+        movq %r9, (%rcx)
+        addq $8, %rcx
+        addq $1, %r8
+        jmp p5_loop
+
+    p5_ret:
+        ret
+
+    p5_ret_null:
+        movq $0, %rax
+        ret
 
     .globl make_sensor
     .type make_sensor, @function
