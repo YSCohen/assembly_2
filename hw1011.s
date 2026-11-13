@@ -52,8 +52,18 @@ reverse_longs:
     .globl sensor_score
     .type sensor_score, @function
 sensor_score:
-    # TODO: Problem 3
-    movq $0, %rax
+    # DONE: Problem 3
+    # %rdi - const Sensor *s
+    #        int id
+    #        long reading
+    #        int weight
+    #
+    # (long)s->id + s->reading * (long)s->weight
+
+    movslq  0(%rdi), %rax
+    movslq 16(%rdi), %rsi
+    imulq   8(%rdi), %rsi
+    addq %rsi, %rax
     ret
 
     .globl sensor_array_total
