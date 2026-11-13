@@ -3,9 +3,24 @@
     .globl sum_positive_ints
     .type sum_positive_ints, @function
 sum_positive_ints:
-    # TODO: Problem 1
+    # DONE: Problem 1
     movq $0, %rax
-    ret
+    movq $0, %rdx
+
+    p1_loop:
+        cmpq %rsi, %rdx
+        jge p1_ret
+        movslq (%rdi,%rdx,4), %rcx
+        cmpq $0, %rcx
+        jle p1_skip
+        addq %rcx, %rax
+
+    p1_skip:
+        addq $1, %rdx
+        jmp p1_loop
+    
+    p1_ret:
+        ret
 
     .globl reverse_longs
     .type reverse_longs, @function
